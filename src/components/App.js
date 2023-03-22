@@ -4,6 +4,7 @@ import '../App.css';
 function App() {
 
   const element = document.documentElement
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const [theme, setTheme] = useState("system");
   const options = [
     {
@@ -43,6 +44,16 @@ function App() {
               break;
     }
   }, [theme])
+
+  darkQuery.addEventListener("change", (e) => {
+    if(!("theme" in localStorage)) {
+      if(e.matches) {
+        element.classList.add("dark")
+      }else{
+        element.classList.remove("dark")
+      }
+    }
+  })
 
   return (
   <section className="min-h-screen pt-8 dark:text-gray-100 dark:bg-slate-900 duration-100">
